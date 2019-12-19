@@ -1,0 +1,264 @@
+---
+title: "Final project"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(dplyr)
+DATA <- "/Users/johnfan/Downloads/"
+
+file <- "datafile.csv"
+
+AV <- data.frame(read.csv(file.path(DATA, file)), row.names=1, check.names = FALSE)
+
+AVariant <- select(AV, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+
+ 
+combinedgroupsAV <- data.frame(cbind(AVariant$EAS_AF_1,AVariant$EUR_AF_1,
+                                   AVariant$SAS_AF_1, AVariant$AFR_AF_1,
+                                 AVariant$AMR_AF_1))
+
+
+stackedgroupsAV <- stack(combinedgroupsAV)
+
+anovaAV <- aov(values ~ ind, data = stackedgroupsAV)
+
+summary(anovaAV)
+
+```
+
+
+
+```{r pressure, echo=FALSE}
+
+
+
+filetopvariantsEAS <- "topvariantsEAS.csv"
+
+
+  
+topvariantsEAS <- data.frame(read.csv(file.path(DATA, filetopvariantsEAS)), row.names=1, check.names = FALSE)
+
+topvariantsEASedited <- select(topvariantsEAS, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+ 
+combinedgroups <- data.frame(cbind(topvariantsEASedited$EAS_AF_1,topvariantsEASedited$EUR_AF_1,
+                                   topvariantsEASedited$SAS_AF_1, topvariantsEASedited$AFR_AF_1,
+                                   topvariantsEASedited$AMR_AF_1))
+
+
+stackedgroups <- stack(combinedgroups)
+
+anovaeas <- aov(values ~ ind, data = stackedgroups)
+
+summary(anovaeas)
+
+topvariantsEASedited
+
+
+```
+```{r}
+
+filetopvariantsEUR <- "topvariantsEUR.csv"
+
+
+topvariantsEUR <- data.frame(read.csv(file.path(DATA, filetopvariantsEUR)), row.names=1, check.names = FALSE)
+
+topvariantsEURedited <- select(topvariantsEUR, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+ 
+combinedgroupseur <- data.frame(cbind(topvariantsEURedited$EAS_AF_1,topvariantsEURedited$EUR_AF_1,
+                                   topvariantsEURedited$SAS_AF_1, topvariantsEURedited$AFR_AF_1,
+                                   topvariantsEURedited$AMR_AF_1))
+
+
+stackedgroupseur <- stack(combinedgroupseur)
+
+anovaEUR <- aov(values ~ ind, data = stackedgroupseur)
+
+summary(anovaEUR)
+
+```
+
+```{r}
+
+filetopvariantsSAS <- "topvariantsSAS.csv"
+
+
+topvariantsSAS <- data.frame(read.csv(file.path(DATA, filetopvariantsSAS)), row.names=1, check.names = FALSE)
+
+topvariantsSASedited <- select(topvariantsSAS, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+ 
+combinedgroupssas <- data.frame(cbind(topvariantsSASedited$EAS_AF_1,topvariantsSASedited$EUR_AF_1,
+                                   topvariantsSASedited$SAS_AF_1, topvariantsSASedited$AMR_AF_1,
+                                   topvariantsSASedited$AFR_AF_1))
+
+
+stackedgroupssas <- stack(combinedgroupssas)
+
+anovaSAS <- aov(values ~ ind, data = stackedgroupssas)
+
+summary(anovaSAS)
+
+```
+
+
+
+
+```{r}
+
+filetopvariantsAMR <- "topvariantsAMR.csv"
+
+
+topvariantsAMR <- data.frame(read.csv(file.path(DATA, filetopvariantsAMR)), row.names=1, check.names = FALSE)
+
+topvariantsAMRedited <- select(topvariantsAMR, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+ 
+combinedgroupsamr <- data.frame(cbind(topvariantsAMRedited$EAS_AF_1,topvariantsAMRedited$EUR_AF_1,
+                                   topvariantsAMRedited$SAS_AF_1, topvariantsAMRedited$AFR_AF_1,
+                                   topvariantsAMRedited$AMR_AF_1))
+
+
+stackedgroupsamr <- stack(combinedgroupsamr)
+
+anovaAMR <- aov(values ~ ind, data = stackedgroupsamr)
+
+summary(anovaAMR)
+
+```
+
+
+
+
+```{r}
+
+filetopvariantsAFR <- "topvariantsAFR.csv"
+
+topvariantsAFR <- data.frame(read.csv(file.path(DATA, filetopvariantsAFR)), row.names=1, check.names = FALSE)
+
+topvariantsAFRedited <- select(topvariantsAFR, "CHROM", "ID", "EAS_AF_1", "EUR_AF_1", "SAS_AF_1", "AFR_AF_1", "AMR_AF_1")
+
+
+ 
+combinedgroupsafr <- data.frame(cbind(topvariantsAFRedited$EAS_AF_1,topvariantsAFRedited$EUR_AF_1,
+                                   topvariantsAFRedited$SAS_AF_1, topvariantsAFRedited$AFR_AF_1,
+                                   topvariantsAFRedited$AMR_AF_1))
+
+
+stackedgroupsafr <- stack(combinedgroupsafr)
+
+anovaAFR <- aov(values ~ ind, data = stackedgroupsafr)
+
+summary(anovaAFR)
+```
+
+```{r}
+
+allvariants <- rbind(topvariantsEASedited, topvariantsEURedited, topvariantsSASedited, topvariantsAMRedited)
+
+
+all_no_dup <- allvariants[!duplicated(allvariants$ID),]
+
+
+combinedgroupsall <- data.frame(cbind(all_no_dup$EAS_AF_1,all_no_dup$EUR_AF_1,
+                                   all_no_dup$SAS_AF_1,
+                                   all_no_dup$AMR_AF_1))
+
+
+stackedgroupsall <- stack(combinedgroupsall)
+
+anovaALL <- aov(values ~ ind, data = stackedgroupsall)
+
+summary(anovaALL)
+
+
+
+
+```
+```{r}
+
+EAS <- select(topvariantsEASedited, "CHROM", "ID", "EAS_AF_1")
+SAS <- select(topvariantsSASedited, "CHROM", "ID", "SAS_AF_1")
+AMR <- select(topvariantsAMRedited, "CHROM", "ID", "AMR_AF_1")
+AFR <- select(topvariantsAFRedited, "CHROM", "ID", "AFR_AF_1")
+EUR <- select(topvariantsEURedited, "CHROM", "ID", "EUR_AF_1")
+
+```
+
+
+```{r}
+
+histPercent <- function(x, ...) {
+   H <- hist(x, plot = FALSE)
+   H$density <- with(H, 100 * density* diff(breaks)[1])
+   labs <- paste(round(H$density), "%", sep="")
+   plot(H, freq = FALSE, labels = labs, ylim=c(0, 1.08*max(H$density)),...)
+}
+
+
+
+
+histPercent(AVariant$EAS_AF_1, col="blue", main="Frequency Distribution of East Asians",xlab="Allele Frequency")
+
+
+```
+
+
+
+```{r}
+
+
+
+
+
+histPercent(AVariant$EUR_AF_1, col="red", main="Frequency Distribution of Europeans",xlab="Allele Frequency")
+
+```
+
+
+```{r}
+
+
+
+
+
+histPercent(AVariant$AFR_AF_1, col="gray", main="Frequency Distribution of Africans",xlab="Allele Frequency")
+
+
+
+```
+
+```{r}
+
+
+histPercent(AVariant$AMR_AF_1, col="orange", main="Frequency Distribution of Americans",xlab="Allele Frequency")
+
+
+
+```
+
+```{r}
+
+
+histPercent(AVariant$SAS_AF_1, col="beige", main="Frequency Distribution of South Asians",xlab="Allele Frequency")
+
+
+
+```
+
